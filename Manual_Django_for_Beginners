@@ -26,7 +26,7 @@ ____________________ 2. Git SetUp -- Initialisation  ____________________
     -  git remote add origin https://github.com/ajmalrashadmarkz/22_11_25_Django_for_APIs_Chapter-3_Library_App.git
     - git push -u origin master
 
-____________________  3. Create App - blog ____________________
+____________________  3. Create App - books ____________________
     - Create pages app
         ○ python manage.py startapp blog
     - Register the App
