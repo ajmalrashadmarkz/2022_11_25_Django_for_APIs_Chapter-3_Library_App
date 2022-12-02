@@ -59,16 +59,16 @@ ____________________  4. Setup Template Folder & Home Page  ____________________
         ]
 
 ____________________  5. Create Class Based View for model class[...Post]  ____________________
-    - books/views.py
+    - blog/views.py
     - import ListView -> django.view.generic
-    - import Book -> models
+    - import Post -> models
     - Create a class
         ○ HomePageView(TemplateView [...Derived Class] ):
                template_name = "webpage name" [...Class variable]
 
 ____________________  6. SetUp Url for project and app  ____________________
     - Create new urls.py file in app folder
-        ○ books/urls.py
+        ○ blog/urls.py
         ○ import path
         ○ import HomePageView
         ○ urlpatterns = [
@@ -83,26 +83,34 @@ ____________________  6. SetUp Url for project and app  ____________________
 
 
 ____________________  7. Create Database Model  ____________________
-    - books/models.py
-    - import models
+    - blog/models.py
+    - import models, reverse
     - Create a class ->
-        name Book
-        attributes title[...char],subtitle[...char],author[...char],isbn[...char]
+        name post
+        attributes title[...char],Author[...foriegn key],body[...char]
+    - Author -> ForeignKey
+        allows for a many-to-one relationship
+        given user can be the author of many different blog posts
+        all many-to-one relationships such as a ForeignKey we must also specify an on_delete75 option
+    - get_absolute_url
+        URL named post_detail and pass in the pk
 
     - Migration
-        python manage.py makemigrations books
+        python manage.py makemigrations blog
         python manage.py migrate
 
 ____________________  8. Django - Admin   ____________________
     - Create a SuperUser
         python manage.py createsuperuser
     - register on
-        books/admin.py
+        blog/admin.py
 
 
 ____________________  9. Setup the template   ____________________
                     base.html
-    - Create a new html file -> base.html
+    - Create a new html file -> base.html [include]
+        header -> Add blog page in header
+            <h1><a href="{% url "home" %}">Blog</a> </h1>
     - Add block & end block for content loading
 
                     home.html
@@ -110,27 +118,13 @@ ____________________  9. Setup the template   ____________________
         {% extends "base.html" %}
     - define block content inside the block & end block
         {% block content %}
-        {% for book in book_list %}
-                <h2><a href="">{{ book.title }}</a></h2>
-                <p>{{ book.body }}</p>
+        {% for post in post_list %}
+            <div class="post-entry">
+                <h2><a href="">{{ post.title }}</a></h2>
+                <p>{{ post.body }}</p>
+            </div>
         {% endfor %}
         {% endblock content %}
-
-____________________  9. unit test   ____________________
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ____________________  9. Static file Dealing   ____________________
     - Create a new directory  in project folder -> static

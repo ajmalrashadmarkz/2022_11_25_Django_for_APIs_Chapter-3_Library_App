@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
-from .models import  Book
+from django.views.generic import TemplateView
 
-class HomePageView(ListView):
-    model = Book
+class HomePageView(TemplateView):
     template_name = "home.html"
