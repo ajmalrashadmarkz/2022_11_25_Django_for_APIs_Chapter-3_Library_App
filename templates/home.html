@@ -4,6 +4,17 @@
 <body>
     {% block content %}
         <h1>Home Page</h1>
+        <h2>Book Lists</h2>
+            <div>
+                {% for book in book_list %}
+                <ul>
+                    <li>Title: {{ book.title }}</li>
+                    <li>Subtitle: {{ book.subtitle }}</li>
+                    <li>Athor: {{ book.author }}</li>
+                    <li>ISBN: {{ book.isbn }}</li>
+                </ul>
+                {% endfor %}
+            </div>
     {% endblock content %}
 </body>
 </html>

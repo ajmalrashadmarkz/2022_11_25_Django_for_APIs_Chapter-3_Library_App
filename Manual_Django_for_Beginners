@@ -1,7 +1,7 @@
 ____________________  1. Initial Set Up - Django_project  ____________________
 
 1. Django 4.1.3 and Python 3.10
-2. Create Directory - blog
+2. Create Directory - Library Website
 3. Create a virtual environment within this new directory
     - python -m venv .venv
     - Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser [..Windows Execution - Enable for running scripts]
@@ -27,8 +27,8 @@ ____________________ 2. Git SetUp -- Initialisation  ____________________
     - git push -u origin master
 
 ____________________  3. Create App - books ____________________
-    - Create pages app
-        ○ python manage.py startapp blog
+    - Create books app
+        ○ python manage.py startapp books
     - Register the App
         ○  django_project/settings.py
         ○  INSTALLED_APPS = [
@@ -40,15 +40,15 @@ ____________________  3. Create App - books ____________________
 
 ____________________  4. Setup Template Folder & Home Page  ____________________
     - Create new directory in the following order
-        ○ pages[...App folder] -> templates [...New Dir] -> pages [...New Dir]
+        ○ books[...App folder] -> templates [...New Dir] -> pages [...New Dir]
     - Create Home Page
         ○ pages\templates\pages\home.html
 
                     OR
     - Create new directory templates in project folder
-        ○ django_project -> templates [...New Dir]
+        ○ Library Website -> templates [...New Dir]
     - Create Home page
-        ○ django_project\templates\home.html
+        ○ Library Website\templates\home.html
     - Add templates in django_project/settings.py
         TEMPLATES = [
             {
@@ -59,16 +59,15 @@ ____________________  4. Setup Template Folder & Home Page  ____________________
         ]
 
 ____________________  5. Create Class Based View for model class[...Post]  ____________________
-    - blog/views.py
+    - books/views.py
     - import ListView -> django.view.generic
-    - import Post -> models
     - Create a class
         ○ HomePageView(TemplateView [...Derived Class] ):
                template_name = "webpage name" [...Class variable]
 
 ____________________  6. SetUp Url for project and app  ____________________
     - Create new urls.py file in app folder
-        ○ blog/urls.py
+        ○ books/urls.py
         ○ import path
         ○ import HomePageView
         ○ urlpatterns = [
@@ -78,7 +77,7 @@ ____________________  6. SetUp Url for project and app  ____________________
         ○ django_project/urls
         ○ import include -> [... from django.urls]
         ○ urlpatterns = [
-                path("", include("pages.urls")),
+                path("", include("books.urls")),
             ]
 
 
@@ -108,9 +107,8 @@ ____________________  8. Django - Admin   ____________________
 
 ____________________  9. Setup the template   ____________________
                     base.html
-    - Create a new html file -> base.html [include]
+    - Create a new html file -> base.html
         header -> Add blog page in header
-            <h1><a href="{% url "home" %}">Blog</a> </h1>
     - Add block & end block for content loading
 
                     home.html
@@ -118,13 +116,22 @@ ____________________  9. Setup the template   ____________________
         {% extends "base.html" %}
     - define block content inside the block & end block
         {% block content %}
-        {% for post in post_list %}
-            <div class="post-entry">
-                <h2><a href="">{{ post.title }}</a></h2>
-                <p>{{ post.body }}</p>
+        {% for book in book_list %}
+            <div>
+                <ul>
+                    <li>Title: {{ book.title }}</li>
+                    <li>Subtitle: {{ book.subtitle }}</li>
+                    <li>Athor: {{ book.author }}</li>
+                    <li>ISBN: {{ book.isbn }}</li>
+                </ul>
             </div>
         {% endfor %}
         {% endblock content %}
+
+
+
+
+
 
 ____________________  9. Static file Dealing   ____________________
     - Create a new directory  in project folder -> static
