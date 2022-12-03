@@ -106,10 +106,15 @@ ____________________  8. Django - Admin   ____________________
 
 
 ____________________  9. Setup the template   ____________________
-                    base.html
-    - Create a new html file -> base.html
-        header -> Add blog page in header
-    - Add block & end block for content loading
+    - use first method
+        no need to add BASE DIR in settings
+        app -> templates -> app name -> ::::_list.html
+        any name will give for class View_Name
+
+        Naming Convention is very important
+        ::::::_list.html   -> very important
+
+        Base.html -> extends not working
 
                     home.html
     - base.html extends in to home page
@@ -128,13 +133,54 @@ ____________________  9. Setup the template   ____________________
         {% endfor %}
         {% endblock content %}
 
+____________________  10. Tests   ____________________
+    - import testcase and reverse and import Book
+    - Create a class -> BookTests [...Base Class testcase]
+        class BookTests(TestCase):
+    - function
+       ○ setUpTestData
+            def setUpTestData(cls):
+                cls.book = Book.objects.create(
+                title="A good title",
+                subtitle="An excellent subtitle",
+                author="Tom Christie",
+                isbn="1234567890123",
+                )
+       ○ test_book_content
+            def test_book_content(self):
+                self.assertEqual(self.book.title, "A good title")
+                self.assertEqual(self.book.subtitle, "An excellent subtitle")
+                self.assertEqual(self.book.author, "Tom Christie")
+                self.assertEqual(self.book.isbn, "1234567890123")
+       ○ def test_home_pagevew(self):
+            def test_home_pagevew(self):
+                 response = self.client.get(reverse("home"))
+                 self.assertEqual(response.status_code, 200)
+                 self.assertContains(response, "excellent subtitle")
+                 self.assertTemplateUsed(response, "books/book_list.html")
+    -
 
 
 
 
 
-____________________  9. Static file Dealing   ____________________
-    - Create a new directory  in project folder -> static
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -Create a new directory  in project folder -> static
     - Update static url in settings
         STATIC_URL = "/static/"
     - Specify where the static folder available

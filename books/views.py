@@ -5,4 +5,4 @@ from .models import Book
 
 class HomePageView(ListView):
     model = Book
-    template_name = "home.html"
+    template_name = "book_list.html"
