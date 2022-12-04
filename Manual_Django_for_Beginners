@@ -160,7 +160,71 @@ ____________________  10. Tests   ____________________
                  self.assertTemplateUsed(response, "books/book_list.html")
     -
 
+____________________  11. Library API  ____________________
+    - Create a new URL
+        ○ Acts an API endpoint outputting all available model data
+        ○ New URL route
+        ○ New view
+        ○ New serializer file
 
+____________________  12. Django REST Framework  ____________________
+    - installing Django REST Framework
+        ○ python -m pip install djangorestframework~=3.14.0
+    - Add rest_framework in INSTALLED_APPS
+        ○ INSTALLED_APPS = [
+            # 3rd party
+            "rest_framework", # new
+            # Local
+            "books.apps.BooksConfig",
+          ]
+    - Create a dedicated apis app for our project
+        ○ Apps should always have a plural name
+            python manage.py startapp apis
+    - Add it to INSTALLED_APPS
+        INSTALLED_APPS = [
+            "apis.apps.ApisConfig",
+        ]
+
+____________________  13. apis - serializers ____________________
+    - Create a new py file -> serializers.py
+    - A serializer33 translates complex data like querysets and model instances into a JSON format
+
+    - import serializers [...from rest_framework]
+    - import Model [...from app.model]
+
+    - Create a class -> AppameSerializer [...baseclass -> serializers.ModelSerializer]
+        - Create another class -> Meta
+        - attributes model, field
+            model = Model_Name [... Book]
+            fields = ("model class item1", "model class item2", "model class item3"........)  -> [...("title", "subtitle", "author", "isbn")]
+
+____________________  14. apis - views ____________________
+    - Import generics [...from rest_framework]
+    - Import Model [... AppName.Model]
+    - Import BookSerializer[... class name ] from [.serializers]
+
+    - Create new class -> BookAPIView [... base class -> generics.APIView]
+        - Objects
+            queryset, serializer_class
+            [...
+            queryset = ModelClassName.objects.all()
+            serializer_class = ClassNameofSerielizers
+            ]
+
+____________________  15. apis - urls ____________________
+    - Create a new .py file -> urls.py
+    - import path [... django.urls]
+    - import ViewClassName [... .vies]
+
+    - setup url patterns
+        urlpatterns = [
+            path("", BookAPIView.as_view(), name="book_list"),
+        ]
+
+____________________  16. apis - include url in project urls ____________________
+    - urlpatterns = [
+            path("api/", include("apis.urls")),
+        ]
 
 
 
