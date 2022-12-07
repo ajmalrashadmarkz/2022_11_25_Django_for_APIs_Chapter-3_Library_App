@@ -226,6 +226,21 @@ ____________________  16. apis - include url in project urls ___________________
             path("api/", include("apis.urls")),
         ]
 
+____________________  17. apis - Test for APIs ____________________
+    - apis/tests.py
+    - Import
+        reverse [... from urls]
+        status  [... from rest_framework]
+        APITestCase [... from rest_framework]
+        Books
+    - Create a class APITests
+        - Create two function
+            setUpTestData -> [... sample object class]
+            est_api_listview -> [... check response]
+
+    - run
+        python manage.py test apis
+
 
 
 
